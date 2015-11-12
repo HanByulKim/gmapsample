@@ -22,7 +22,7 @@ $(document).on("ready page:load", function(){
       handleLocationError(false, infoWindow, map.getCenter());
     }
     
-      $('#abc').text(lat,lng);
+      $('#abc').text("fuckyou");
   }
   function handleLocationError(browserHasGeolocation, infoWindow, pos) {
   infoWindow.setPosition(pos);
@@ -39,11 +39,18 @@ $(document).on("ready page:load", function(){
       mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     var map = new google.maps.Map(mapCanvas, mapOptions);
+    
+    google.maps.event.addListener(map, 'rightclick', function(event){
+      templocation = event.latLng;
+      //map.setCenter(templocation);
+      var mark = new google.maps.Marker({
+        position: templocation,
+        map: map
+      })
+    })
   }
-
+  
   initialize();
   location();
-  
-  
 
 });
