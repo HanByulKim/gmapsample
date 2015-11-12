@@ -1,3 +1,50 @@
+<script>
+    function initialize( ) {
+    var mapCanvas = document.getElementById('map');
+    var mapOptions = {
+      center: new google.maps.LatLng(37.449997, 126.952488),
+      zoom: 18,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+    var map = new google.maps.Map(mapCanvas, mapOptions);
+    
+    google.maps.event.addListener(map, 'rightclick', function(event){
+      templocation = event.latLng;
+      //map.setCenter(templocation);
+      $("#getcolat").val(templocation.lat());
+      $("#getcolng").val(templocation.lng());
+      document.getElementById("gettestlat").innerHTML=templocation.lat();
+      document.getElementById("gettestlng").innerHTML=templocation.lng();
+      var mark = new google.maps.Marker({
+        position: templocation,
+        map: map
+      })
+      var contentString = '<%=form_tag '/make', method:'post' do %><ul><textarea name="tit" class="form-control" row="1"></textarea></ul><ul><textarea name="con" class="form-control" row="4"></textarea></ul><input type="submit"><% end %>';
+
+      var infowindow = new google.maps.InfoWindow({
+        content: contentString
+      });
+      
+      mark.addListener('click', function() {
+        infowindow.open(map, mark);
+      });
+      
+    })
+    
+      markers.push(mark);
+    }
+    
+    // Sets the map on all markers in the array.
+    function setMapOnAll(map) {
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+      }
+    }
+  }
+    
+</script>
+
+
 <ul>
     <button href="#"> <%= current_user.email %> </button>
 </ul>
@@ -14,6 +61,7 @@
 <ul>
     <a> Hello </a>
 </ul>
+
 
 <%=form_tag '/make', method:'post' do %>
 
