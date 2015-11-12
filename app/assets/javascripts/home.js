@@ -43,6 +43,10 @@ $(document).on("ready page:load", function(){
     google.maps.event.addListener(map, 'rightclick', function(event){
       templocation = event.latLng;
       //map.setCenter(templocation);
+      $("#getcolat").val(templocation.lat());
+      $("#getcolng").val(templocation.lng());
+      document.getElementById("gettestlat").innerHTML=templocation.lat();
+      document.getElementById("gettestlng").innerHTML=templocation.lng();
       var mark = new google.maps.Marker({
         position: templocation,
         map: map
